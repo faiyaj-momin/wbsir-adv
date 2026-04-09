@@ -19,11 +19,14 @@ function calculateAge(dateOfBirth: string): number {
  * Map case types to their dynamic field keys
  */
 const caseFieldMap: Record<CaseType, keyof DynamicFields | null> = {
-  multiple_paternity_claims: 'multiplePaternityC',
-  name_mismatch: 'nameMismatch',
-  father_name_mismatch: 'nameMismatch',
-  age_over_50: 'ageOver50',
-  age_under_15: 'ageUnder15',
+  MULTIPLE_PATERNITY: 'multiplePaternity',
+  SELF_NAME_MISMATCH: 'selfNameMismatch',
+  PARENT_NAME_MISMATCH: 'parentNameMismatch',
+  AGE_GAP_GT_50: 'ageGapGt50',
+  AGE_GAP_LT_15: 'ageGapLt15',
+  GRANDPARENT_AGE_GAP_LT_40: 'grandparentAgeGapLt40',
+  NOTICE_NOT_SERVED: null,
+  NOTICE_INCOMPLETE: null,
 };
 
 /**
@@ -68,17 +71,17 @@ export function buildTemplateData(form: FormData): Record<string, any> {
     parentType,
     sonOrDaughter,
 
-    // For name_mismatch case
+    // For SELF_NAME_MISMATCH case
     currentName: basicDetails.fullName,
-    oldName: dynamicFields.nameMismatch?.nameOnSIR || '',
-    nameOnDocument: dynamicFields.nameMismatch?.nameOnDocument || '',
+    oldName: dynamicFields.selfNameMismatch?.nameOnSIR || '',
+    nameOnDocument: dynamicFields.selfNameMismatch?.nameOnDocument || '',
 
-    // For father_name_mismatch case
+    // For PARENT_NAME_MISMATCH case
     parentCurrentName: parentName,
-    parentOldName: dynamicFields.nameMismatch?.nameOnSIR || '',
-    parentNewName: dynamicFields.nameMismatch?.nameOnDocument || '',
+    parentOldName: dynamicFields.parentNameMismatch?.parentNameOnSIR || '',
+    parentNewName: dynamicFields.parentNameMismatch?.parentNameOnDocument || '',
 
-    // For family cases (multiple_paternity_claims, age_over_50, age_under_15)
+    // For family cases (MULTIPLE_PATERNITY, AGE_GAP_GT_50, AGE_GAP_LT_15, GRANDPARENT_AGE_GAP_LT_40)
     total:
       (currentCaseDynamicFields?.brothersCount || 0) +
       (currentCaseDynamicFields?.sistersCount || 0),

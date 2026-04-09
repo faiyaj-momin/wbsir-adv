@@ -24,11 +24,14 @@ export function generateMergedDocument(form: FormData): string {
   const { fullName, district, parentName, sonOrDaughter, age } = templateData;
 
   const caseLabels: Record<CaseType, string> = {
-    multiple_paternity_claims: "Multiple Siblings / Large Family Linkage",
-    name_mismatch: "Name Mismatch in Electoral Record",
-    father_name_mismatch: "Parent Name Mismatch in Record",
-    age_over_50: "Age Gap Clarification (>50 Years)",
-    age_under_15: "Age Gap Clarification (<15 Years)",
+    MULTIPLE_PATERNITY: "Multiple Siblings / Large Family Linkage",
+    SELF_NAME_MISMATCH: "Self Name Mismatch in Electoral Record",
+    PARENT_NAME_MISMATCH: "Parent Name Mismatch in Record",
+    AGE_GAP_GT_50: "Age Gap Clarification (>50 Years)",
+    AGE_GAP_LT_15: "Age Gap Clarification (<15 Years)",
+    GRANDPARENT_AGE_GAP_LT_40: "Grandparent Age Gap Clarification (<40 Years)",
+    NOTICE_NOT_SERVED: "Notice Not Served Properly",
+    NOTICE_INCOMPLETE: "Notice Incomplete",
   };
 
   // Extract the body paragraphs from each template (skip header/footer)

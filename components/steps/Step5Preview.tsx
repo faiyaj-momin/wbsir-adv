@@ -90,13 +90,18 @@ export function Step5Preview({ formData }: Step5PreviewProps) {
 
   const getCaseIcon = (caseId: CaseType) => {
     switch (caseId) {
-      case 'name_mismatch':
+      case 'SELF_NAME_MISMATCH':
+      case 'PARENT_NAME_MISMATCH':
         return <User className="w-4 h-4" />;
-      case 'multiple_paternity_claims':
+      case 'MULTIPLE_PATERNITY':
         return <Users className="w-4 h-4" />;
-      case 'age_over_50':
-      case 'age_under_15':
+      case 'AGE_GAP_GT_50':
+      case 'AGE_GAP_LT_15':
+      case 'GRANDPARENT_AGE_GAP_LT_40':
         return <Calendar className="w-4 h-4" />;
+      case 'NOTICE_NOT_SERVED':
+      case 'NOTICE_INCOMPLETE':
+        return <FileText className="w-4 h-4" />;
       default:
         return <AlertCircle className="w-4 h-4" />;
     }
@@ -276,7 +281,7 @@ export function Step5Preview({ formData }: Step5PreviewProps) {
             content={appealText}
             applicantName={basicDetails.fullName}
             district={basicDetails.district}
-            caseType={selectedCases[0] || 'name_mismatch'}
+            caseType={selectedCases[0] || 'SELF_NAME_MISMATCH'}
           />
         ) : (
           <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">

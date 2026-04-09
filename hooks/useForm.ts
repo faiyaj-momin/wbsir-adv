@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { emptyFormData } from '@/types/forms';
 import type { FormData, FormStep, CaseType } from '@/types/forms';
+import { isCaseSelectionAllowed, isCaseSelectionValid } from '@/lib/case-selection';
 
 const STORAGE_KEY = 'multi-step-form-data';
 
@@ -43,23 +44,34 @@ export function useForm() {
 
   const toggleCase = useCallback((caseId: CaseType) => {
     setFormData(prev => {
-      const selectedCases = prev.selectedCases.includes(caseId)
+      const isAlreadySelected = prev.selectedCases.includes(caseId);
+      if (!isAlreadySelected && !isCaseSelectionAllowed(caseId, prev.selectedCases)) {
+        return prev;
+      }
+
+      const selectedCases = isAlreadySelected
         ? prev.selectedCases.filter(c => c !== caseId)
         : [...prev.selectedCases, caseId];
 
       // Clean up dynamic fields for unselected cases
       const dynamicFields = { ...prev.dynamicFields };
-      if (!selectedCases.includes('name_mismatch') && !selectedCases.includes('father_name_mismatch')) {
-        delete dynamicFields.nameMismatch;
+      if (!selectedCases.includes('SELF_NAME_MISMATCH')) {
+        delete dynamicFields.selfNameMismatch;
       }
-      if (!selectedCases.includes('multiple_paternity_claims')) {
-        delete dynamicFields.multiplePaternityC;
+      if (!selectedCases.includes('PARENT_NAME_MISMATCH')) {
+        delete dynamicFields.parentNameMismatch;
       }
-      if (!selectedCases.includes('age_over_50')) {
-        delete dynamicFields.ageOver50;
+      if (!selectedCases.includes('MULTIPLE_PATERNITY')) {
+        delete dynamicFields.multiplePaternity;
       }
-      if (!selectedCases.includes('age_under_15')) {
-        delete dynamicFields.ageUnder15;
+      if (!selectedCases.includes('AGE_GAP_GT_50')) {
+        delete dynamicFields.ageGapGt50;
+      }
+      if (!selectedCases.includes('AGE_GAP_LT_15')) {
+        delete dynamicFields.ageGapLt15;
+      }
+      if (!selectedCases.includes('GRANDPARENT_AGE_GAP_LT_40')) {
+        delete dynamicFields.grandparentAgeGapLt40;
       }
 
       return { ...prev, selectedCases, dynamicFields };
@@ -109,38 +121,53 @@ export function useForm() {
   }, [formData.basicDetails]);
 
   const isStep2Valid = useCallback(() => {
-    return formData.selectedCases.length > 0;
+    return isCaseSelectionValid(formData.selectedCases);
   }, [formData.selectedCases]);
 
   const isStep3Valid = useCallback(() => {
     const { selectedCases, dynamicFields } = formData;
 
-    if (selectedCases.includes('name_mismatch') || selectedCases.includes('father_name_mismatch')) {
-      if (!dynamicFields.nameMismatch?.nameOnDocument?.trim() ||
-        !dynamicFields.nameMismatch?.nameOnSIR?.trim()) {
+    if (selectedCases.includes('SELF_NAME_MISMATCH')) {
+      if (!dynamicFields.selfNameMismatch?.nameOnDocument?.trim() ||
+        !dynamicFields.selfNameMismatch?.nameOnSIR?.trim()) {
         return false;
       }
     }
 
-    if (selectedCases.includes('multiple_paternity_claims')) {
-      if (dynamicFields.multiplePaternityC?.brothersCount === undefined ||
-        dynamicFields.multiplePaternityC?.sistersCount === undefined) {
+    if (selectedCases.includes('PARENT_NAME_MISMATCH')) {
+      if (!dynamicFields.parentNameMismatch?.parentNameOnDocument?.trim() ||
+        !dynamicFields.parentNameMismatch?.parentNameOnSIR?.trim()) {
         return false;
       }
     }
 
-    if (selectedCases.includes('age_over_50')) {
-      if (dynamicFields.ageOver50?.brothersCount === undefined ||
-        dynamicFields.ageOver50?.sistersCount === undefined ||
-        dynamicFields.ageOver50?.birthPosition === undefined) {
+    if (selectedCases.includes('MULTIPLE_PATERNITY')) {
+      if (dynamicFields.multiplePaternity?.brothersCount === undefined ||
+        dynamicFields.multiplePaternity?.sistersCount === undefined) {
         return false;
       }
     }
 
-    if (selectedCases.includes('age_under_15')) {
-      if (dynamicFields.ageUnder15?.brothersCount === undefined ||
-        dynamicFields.ageUnder15?.sistersCount === undefined ||
-        dynamicFields.ageUnder15?.birthPosition === undefined) {
+    if (selectedCases.includes('AGE_GAP_GT_50')) {
+      if (dynamicFields.ageGapGt50?.brothersCount === undefined ||
+        dynamicFields.ageGapGt50?.sistersCount === undefined ||
+        dynamicFields.ageGapGt50?.birthPosition === undefined) {
+        return false;
+      }
+    }
+
+    if (selectedCases.includes('AGE_GAP_LT_15')) {
+      if (dynamicFields.ageGapLt15?.brothersCount === undefined ||
+        dynamicFields.ageGapLt15?.sistersCount === undefined ||
+        dynamicFields.ageGapLt15?.birthPosition === undefined) {
+        return false;
+      }
+    }
+
+    if (selectedCases.includes('GRANDPARENT_AGE_GAP_LT_40')) {
+      if (dynamicFields.grandparentAgeGapLt40?.brothersCount === undefined ||
+        dynamicFields.grandparentAgeGapLt40?.sistersCount === undefined ||
+        dynamicFields.grandparentAgeGapLt40?.birthPosition === undefined) {
         return false;
       }
     }

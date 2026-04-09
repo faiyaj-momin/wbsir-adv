@@ -67,13 +67,18 @@ function parseJson<T>(raw: string, fallback: T): T {
 }
 
 async function callAI(prompt: string): Promise<string> {
-  const res = await openai.chat.completions.create({
-    model: "gpt-5.4-mini",
-    messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: prompt }],
-    temperature: 0.3,
-  });
 
-  return res.choices?.[0]?.message?.content?.trim() ?? "";
+  try {
+    const res = await openai.chat.completions.create({
+      model: "gpt-5.4-mini",
+      messages: [{ role: "system", content: "You are a helpful assistant." }, { role: "user", content: prompt }],
+      temperature: 0.3,
+    });
+
+    return res.choices?.[0]?.message?.content?.trim() ?? "";
+  } catch (error) {
+    return ""
+  }
 }
 
 export async function runPipeline(data: AppFormData): Promise<AIPipelineResult> {
