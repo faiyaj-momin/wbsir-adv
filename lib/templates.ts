@@ -8,53 +8,44 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub: Petition of Appeal against deletion of name from Electoral Roll due to suspected incorrect family linkage
 
-Respected Sir/Madam,
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
-I, {{fullName}}, aged about {{age}} years, {{relationType}} of {{guardianName}}, resident of {{fullAddress}}, respectfully submit that:
+That I have received a notice regarding an objection to my name in the electoral roll, alleging that I have been linked as a son/daughter of a person who is also claimed as a father by more than six persons, creating doubt regarding correct family linkage.
 
-1. My name has been wrongly deleted from the electoral roll.
+In this regard, I respectfully submit that this objection is not applicable to my case. The allegation of multiple paternity is incorrect and does not reflect the actual family structure.
 
-2. The objection raised is that I have been linked as a son/daughter of a person who is also claimed as father by more than six persons, creating doubt.
+I state that my {{parentType}}'s name is {{parentName}}, and my family relationship is genuine and verifiable. My relationship with {{parentName}} is supported by all official documents.
 
-3. This has occurred due to incorrect or mistaken linkage in the records.
+Therefore, this is not a case of incorrect linkage or spurious relationship.
 
-4. I state that my father’s name is {{guardianName}}, and my family relationship is genuine and verifiable.
-
-5. I have valid documents to prove my identity and correct family linkage beyond any doubt.
-
-Under the above facts and circumstances, it is therefore most humbly prayed that the discrepancy may kindly be corrected and the name of the applicant be retained in the electoral roll.`,
+Under the above facts and circumstances, it is therefore most humbly prayed that the objection may kindly be set aside and the name of the applicant be retained in the electoral roll.`,
 
   MULTIPLE_PATERNITY_INVALID: `
-  BEFORE THE LEARNED TRIBUNAL / APPELLATE AUTHORITY
-AT {{district}}
+BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
-Sub: Petition of Appeal against deletion of name from Electoral Roll due to incorrect objection
+Sub: Petition of Appeal against deletion of name from Electoral Roll - Objection Invalid
 
-Respected Sir/Madam,
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
-I, {{fullName}}, aged about {{age}} years, {{relationType}} of {{guardianName}}, resident of {{fullAddress}}, respectfully submit that:
+That I have received an objection alleging that more than six persons are linked to the same father, creating doubt regarding family linkage. However, this objection is invalid and not applicable in my case.
 
-1. My name has been wrongly deleted from the electoral roll.
+In this regard, I respectfully submit that in reality, we are only {{totalSiblings}} siblings, which is less than six. Therefore, the objection based on multiple paternity is not applicable to my case.
 
-2. The objection raised is that more than six persons are linked to the same father, creating doubt regarding family linkage. However, this is incorrect.
+I state that my {{parentType}}'s name is {{parentName}}, and my family relationship is genuine and verifiable. All of us are genuine siblings from the same parents, and our relationship is supported by all official documents.
 
-3. In reality, we are only {{totalSiblings}} siblings, which is less than six, and therefore the objection is not applicable in my case.
+Therefore, this is not a case of incorrect linkage or spurious relationship, and the objection should be rejected outright.
 
-4. My father’s name is {{guardianName}}, and my family relationship is genuine and verifiable.
-
-5. I have valid documents to prove my identity and correct family linkage beyond any doubt.
-
-Under the above facts and circumstances, it is therefore most humbly prayed that the discrepancy may kindly be corrected and the name of the applicant be retained in the electoral roll.`,
+Under the above facts and circumstances, it is therefore most humbly prayed that the objection may kindly be rejected and the name of the applicant be retained in the electoral roll.`,
   PARENT_NAME_MISMATCH: `
 BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal against discrepancy in parental name under SIR 2026
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentCurrentName}}, am a bona fide voter.
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentCurrentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received a notice regarding mismatch in my {{parentType}}'s name between earlier electoral records and the present voter list.
 
-In this regard, I respectfully submit that my {{parentType}}'s name was recorded as "{{parentOldName}}" in earlier records, whereas in the current records it appears as "{{parentCurrentName}}".
+In this regard, I respectfully submit that my {{parentType}}'s name in the SIR 2002 voter list was recorded as "{{parentOldName}}" in earlier records, whereas in the current records it appears as "{{parentCurrentName}}".
 
 It is submitted that both names refer to one and the same person and are identical in identity. The variation has occurred due to spelling differences, phonetic variations, or clerical errors in earlier records.
 
@@ -69,7 +60,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal against discrepancy in applicant's name under SIR 2026
 
-I, {{currentName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{currentName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received a notice stating that my name differs between earlier electoral records and the present voter list.
 
@@ -89,7 +80,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal regarding age gap clarification (Above 50 years)
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received a notice stating that there is a significant age gap (more than 50 years) between me and my {{parentType}}.
 
@@ -108,7 +99,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal regarding age gap clarification (Below 15 years)
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received a notice stating that there is a small age gap (less than 15 years) between me and my {{parentType}}.
 
@@ -127,7 +118,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal regarding grandparent age gap clarification (Below 40 years)
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received a notice stating that there is a small age gap (less than 40 years) between my {{grandparentType}} and myself.
 
@@ -146,7 +137,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal against deletion due to improper notice service
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{currentName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received information that my name has been deleted from the electoral roll, however, I was not properly served with any notice regarding the same.
 
@@ -163,7 +154,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal against deletion due to incomplete notice
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{currentName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I received a notice regarding deletion from the electoral roll, however, the said notice was incomplete and did not contain sufficient information.
 
@@ -180,7 +171,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal against discrepancy in applicant's name under SIR 2026
 
-I, {{currentName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{currentName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received an objection regarding alleged discrepancy in my name in the electoral records, however, this objection is invalid and baseless.
 
@@ -199,7 +190,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal against discrepancy in parental name under SIR 2026
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentCurrentName}}, am a bona fide voter.
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentCurrentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received an objection regarding alleged mismatch in my {{parentType}}'s name between earlier electoral records and the present voter list, however, this objection is invalid and baseless.
 
@@ -218,7 +209,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal regarding age gap objection (Above 50 years) - Invalid
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received an objection stating that there is a significant age gap (more than 50 years) between me and my {{parentType}}, however, this objection is invalid and not applicable.
 
@@ -239,7 +230,7 @@ BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT {{district}}
 
 Sub:- Appeal regarding age gap objection (Below 15 years) - Invalid
 
-I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}, am a bona fide voter.
+I, {{fullName}}, Age {{age}}, {{sonOrDaughter}} of {{parentName}}{{spouseClause}}, am a bona fide voter.
 
 That I have received an objection stating that there is a small age gap (less than 15 years) between me and my {{parentType}}, however, this objection is invalid and not applicable in my case.
 

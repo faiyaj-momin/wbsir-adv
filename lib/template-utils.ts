@@ -33,6 +33,7 @@ const caseFieldMap: Record<CaseType, keyof DynamicFields | null> = {
  * Build complete template data from form data
  * Handles dynamic sonOrDaughter (S/O or D/O) based on gender
  * Handles dynamic parentType (father, mother, other)
+ * Handles spouse name for female applicants
  */
 export function buildTemplateData(form: FormData): Record<string, any> {
   const { basicDetails, dynamicFields, selectedCases } = form;
@@ -58,8 +59,14 @@ export function buildTemplateData(form: FormData): Record<string, any> {
     parentType === 'mother' ? basicDetails.motherName : basicDetails.fatherName;
 
   // Calculate son or daughter based on gender
-  const sonOrDaughter =
-    basicDetails.gender?.toLowerCase() === 'female' ? 'D/O' : 'S/O';
+  const isGenderFemale = basicDetails.gender?.toLowerCase() === 'female';
+  const sonOrDaughter = isGenderFemale ? 'D/O' : 'S/O';
+
+  // Build spouse clause for female applicants
+  const spouseClause =
+    isGenderFemale && basicDetails.spouseName?.trim()
+      ? ` and wife of ${basicDetails.spouseName}`
+      : '';
 
   // Build the complete data object compatible with all templates
   return {
@@ -70,6 +77,8 @@ export function buildTemplateData(form: FormData): Record<string, any> {
     parentName,
     parentType,
     sonOrDaughter,
+    spouseName: basicDetails.spouseName || '',
+    spouseClause,
 
     // For SELF_NAME_MISMATCH case
     currentName: basicDetails.fullName,
