@@ -112,6 +112,8 @@ export function AppealDocument({ content, applicantName, district, caseType }: A
     year: "numeric",
   });
  
+  const annexureItems = ["Aadhaar Card", "Voter ID Card ", "PAN Card", "Ration Card", "BLO Enumeration Form","Hearing Notice", "2002 SIR Voter List"]
+
   return (
     <>
       {/* Print styles injected globally */}
@@ -231,7 +233,6 @@ export function AppealDocument({ content, applicantName, district, caseType }: A
                   style={{
                     margin: "0 0 14px",
                     textAlign: "justify",
-                    textIndent: "2em",
                     lineHeight: "1",
                   }}
                 >
@@ -239,32 +240,30 @@ export function AppealDocument({ content, applicantName, district, caseType }: A
                 </p>
               );
             }
+
+            return null;
+          })}
  
-            if (block.type === "annexure-heading") {
-              return (
-                <div key={i} style={{ marginTop: "28px", marginBottom: "8px" }}>
+          {/* Annexure section */}
+          <div style={{lineHeight: 0.8}}>
+            <div style={{ marginTop: "28px", marginBottom: "8px" }}>
                   <p
                     style={{
-                      fontWeight: "700",
-                      fontSize: "18pt",
+                      fontWeight: "600",
+                      fontSize: "12pt",
                       textTransform: "uppercase",
                       letterSpacing: "0.06em",
                       margin: 0,
                       borderBottom: "1.5px solid #333",
-                      paddingBottom: "4px",
+                      paddingBottom: "2px",
                       display: "inline-block",
                     }}
                   >
                     Annexure
                   </p>
-                </div>
-              );
-            }
- 
-            if (block.type === "annexure-item") {
-              return (
-                <div
-                  key={i}
+            </div>
+            {annexureItems.map((item, i) => (
+<div key={i}
                   style={{
                     display: "flex",
                     gap: "10px",
@@ -272,46 +271,20 @@ export function AppealDocument({ content, applicantName, district, caseType }: A
                     paddingLeft: "8px",
                   }}
                 >
-                  <span style={{ minWidth: "22px", fontWeight: "600", color: "#444" }}>{block.index}.</span>
-                  <span>{block.text}</span>
+                  <span style={{ minWidth: "22px", fontWeight: "600", color: "#444" }}>{i+1}.</span>
+                  <span>{item}</span>
                 </div>
-              );
-            }
- 
-            if (block.type === "spacer") {
-              return <div key={i} style={{ height: "36px" }} />;
-            }
- 
-            if (block.type === "signature") {
-              return (
-                <p
-                  key={i}
-                  style={{
-                    margin: "0 0 4px",
-                    fontWeight: "600",
-                    textAlign: "left",
-                  }}
-                >
-                  {block.text}
-                </p>
-              );
-            }
- 
-            return null;
-          })}
- 
+            ))}
+          </div>
           {/* Verification section */}
           <div
             style={{
               marginTop: "48px",
               borderTop: "1px solid #ccc",
               paddingTop: "20px",
+              lineHeight: 1.
             }}
           >
-            <p style={{ fontWeight: "700", fontSize: "11pt", marginBottom: "8px" }}>VERIFICATION</p>
-            <p style={{ textAlign: "justify", margin: "0 0 14px", textIndent: "2em" }}>
-              I, {applicantName || "the applicant"}, do hereby declare that the information stated in this petition is true and correct to the best of my knowledge and belief. No part of it is false and nothing material has been concealed.
-            </p>
             <div
               style={{
                 display: "flex",
@@ -320,9 +293,9 @@ export function AppealDocument({ content, applicantName, district, caseType }: A
                 alignItems: "flex-end",
               }}
             >
-              <div>
-                <p style={{ margin: 0, fontSize: "10pt", color: "#666" }}>Place: {district || "__________"}</p>
-                <p style={{ margin: "4px 0 0", fontSize: "10pt", color: "#666" }}>Date: {today}</p>
+              <div style={{ textAlign: "left" }}>
+                <p style={{ margin: 0, fontSize: "10pt", color: "#666", marginBottom: "8px" }}>Place: ____________</p>
+                <p style={{ margin: "4px 0 0", fontSize: "10pt", color: "#666" }}>Date: ___/___/______</p>
               </div>
               <div style={{ textAlign: "center" }}>
                 <div style={{ width: "160px", borderBottom: "1.5px solid #333", marginBottom: "6px" }} />

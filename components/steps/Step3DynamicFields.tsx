@@ -86,7 +86,7 @@ export function Step3DynamicFields({ formData, onUpdate }: Step3DynamicFieldsPro
             </div>
             <div className="space-y-2">
               <Label htmlFor="selfNameOnSIR">
-                {t('Name on SIR', 'এস. আই. আর (SIR) এ নাম')}
+                {t('Name on SIR 2002', '2002 এস. আই. আর (SIR) এ নাম')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input
@@ -101,7 +101,7 @@ export function Step3DynamicFields({ formData, onUpdate }: Step3DynamicFieldsPro
                     }
                   });
                 }}
-                placeholder={t('Enter name as on SIR', 'এসআইআর অনুযায়ী নাম লিখুন')}
+                placeholder={t('Enter name as on SIR 2002', '2002 এস. আই. আর (SIR) অনুযায়ী নাম লিখুন')}
               />
             </div>
           </div>
@@ -139,7 +139,7 @@ export function Step3DynamicFields({ formData, onUpdate }: Step3DynamicFieldsPro
             </div>
             <div className="space-y-2">
               <Label htmlFor="parentNameOnSIR">
-                {t('Parent Name on SIR', 'এস. আই. আর (SIR) এ পিতা-মাতার নাম')}
+                {t('Parent Name on SIR 2002', '2002 এস. আই. আর (SIR) এ পিতা-মাতার নাম')}
                 <span className="text-red-500 ml-1">*</span>
               </Label>
               <Input

@@ -32,11 +32,28 @@ Additional conditions:
 - Do NOT stop after first match
 
 ---
+📌 export type CaseType =
+  | "MULTIPLE_PATERNITY_VALID"
+  | "MULTIPLE_PATERNITY_INVALID"
+  | "PARENT_NAME_MISMATCH_VALID"
+  | "PARENT_NAME_MISMATCH_INVALID"
+  | "SELF_NAME_MISMATCH_VALID"
+  | "SELF_NAME_MISMATCH_INVALID"
+  | "AGE_GAP_GT_50_VALID"
+  | "AGE_GAP_GT_50_INVALID"
+  | "AGE_GAP_LT_15_VALID"
+  | "AGE_GAP_LT_15_INVALID"
+  | "GRANDPARENT_AGE_GAP_LT_40_VALID"
+  | "GRANDPARENT_AGE_GAP_LT_40_INVALID"
+  | "NOTICE_NOT_SERVED"
+  | "NOTICE_INCOMPLETE";
+---
 
 📌 OUTPUT STRUCTURE
 
 {
-  "cases": [],
+  "cases": ["MULTIPLE_PATERNITY_VALID", "PARENT_NAME_MISMATCH_VALID"],
+  caseCount: 2,
   "dynamic": {
     "parentType": "father | mother | grandfather | grandmother | null",
     "parentOldName": "",
@@ -59,7 +76,9 @@ Additional conditions:
 
 - Detect ONLY from given input
 - Do NOT assume missing facts
-- Comments have highest priority
+- Comments "applicant says" are hints, not facts
+- Comments means the applicant is stating their problem
+- Comments use as context
 - Selected cases are hints, not truth
 - If unclear → return null
 

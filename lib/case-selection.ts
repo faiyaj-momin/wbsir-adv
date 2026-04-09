@@ -28,7 +28,13 @@ export function isCaseSelectionAllowed(caseId: CaseType, selectedCases: CaseType
   const hasNoticeSelected = selectedCases.some(c => NOTICE_CASES.includes(c));
   const isNoticeCase = NOTICE_CASES.includes(caseId);
 
-  if (hasNoticeSelected || isNoticeCase) {
+  // If a notice case is already selected, disable all other options
+  if (hasNoticeSelected) {
+    return false;
+  }
+
+  // If trying to select a notice case, only allow if no other cases are selected
+  if (isNoticeCase && selectedCases.length > 0) {
     return false;
   }
 

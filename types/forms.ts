@@ -94,8 +94,8 @@ export type FormStep = 1 | 2 | 3 | 4 | 5;
 export const CASES: CaseInfo[] = [
   {
     id: 'MULTIPLE_PATERNITY',
-    label: 'Multiple Paternity',
-    labelBn: 'একাধিক পিতৃত্ব',
+    label: 'More Than 6',
+    labelBn: 'ছয়জন পুত্র/কন্যা',
     description: 'When one person is claimed as father by multiple children',
     descriptionBn: 'যখন একজন ব্যক্তিকে একাধিক সন্তান তাদের পিতা হিসাবে দাবি করে'
   },
@@ -137,7 +137,7 @@ export const CASES: CaseInfo[] = [
   {
     id: 'NOTICE_NOT_SERVED',
     label: 'Notice Not Served',
-    labelBn: 'নোটিশ পরিবেশিত হয়নি',
+    labelBn: 'নোটিশ দেওয়া হয়নি',
     description: 'When notice has not been properly served',
     descriptionBn: 'যখন নোটিশ সঠিকভাবে পরিবেশিত হয়নি'
   },

@@ -24,6 +24,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Toaster } from '@/components/ui/sonner';
+import { downloadPDF } from '@/lib/template-utils';
 
 function FormWizard() {
   const { t } = useLanguage();

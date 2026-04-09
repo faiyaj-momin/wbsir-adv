@@ -125,6 +125,8 @@ export async function generateAppealWithGemini(formData: FormData): Promise<stri
 export async function downloadPDF(elementId: string, options: any = {}): Promise<void> {
   // Placeholder for PDF generation
   // In the future, this will use a PDF library like jsPDF or html2pdf
+  const el = document.querySelector(".page");
+
   console.log('PDF download not implemented yet', elementId, options);
 }
 

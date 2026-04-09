@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { AppealDocument } from '@/components/appeal-document';
 import { TEMPLATES } from '@/lib/templates';
 import { AIPipelineResult } from '@/lib/aiPipeline';
+import { generateDocument } from '@/lib/template-utils';
 
 interface Step5PreviewProps {
   formData: FormData;
@@ -40,6 +41,11 @@ export function Step5Preview({ formData }: Step5PreviewProps) {
       setErrorMessage(null);
 
       try {
+        if(selectedCases.length === 1) {
+          setAppealText(generateDocument(selectedCases[0], formData, TEMPLATES));
+          setIsGenerating(false);
+          return;
+        }
         const response = await fetch('/api/generate', {
           method: 'POST',
           headers: {
@@ -75,12 +81,12 @@ export function Step5Preview({ formData }: Step5PreviewProps) {
     };
 
     generateAppeal();
-
     return () => {
       isActive = false;
     };
   }, [formData, selectedCases.length]);
 
+  
   const hasAppealText = !isGenerating && appealText.trim().length > 0;
 
   const getCaseLabel = (caseId: CaseType) => {
@@ -278,10 +284,11 @@ export function Step5Preview({ formData }: Step5PreviewProps) {
           </div>
         ) : appealText.trim().length > 0 ? (
           <AppealDocument
-            content={appealText}
-            applicantName={basicDetails.fullName}
-            district={basicDetails.district}
-            caseType={selectedCases[0] || 'SELF_NAME_MISMATCH'}
+                applicantName={basicDetails.fullName}
+                content={appealText}
+                caseType={selectedCases[0]}
+                district={basicDetails.district}
+                
           />
         ) : (
           <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
