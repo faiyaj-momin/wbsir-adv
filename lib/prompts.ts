@@ -1,7 +1,11 @@
-export const detectPrompt = (data: any) => `
+import { TEMPLATES } from "./templates";
+import type { FormData as AppFormData } from "@/types/forms";
+import type { AIPipelineDetected, AIPipelineNormalized } from "@/lib/aiPipeline";
+
+export const detectPrompt = (data: AppFormData) => `
 You are an intelligent case classifier for SIR 2026 electoral appeal applications.
 
-Your task is to analyze the applicant's details and comment, and detect all applicable case types.
+Your task is to analyze the applicant's details and comments, and detect all applicable case types.
 
 ---
 
@@ -20,29 +24,29 @@ Your task is to analyze the applicant's details and comment, and detect all appl
 Return structured JSON:
 
 {
-"cases": [],
-"dynamic": {
-"parentType": "father | mother",
-"parentOldName": "",
-"parentCurrentName": "",
-"selfOldName": "",
-"selfCurrentName": "",
-"total": number,
-"brothers": number,
-"sisters": number,
-"position": number,
-"ageGapType": "UNDER_15 | OVER_50 | NONE",
-"isAgeGapValid": true/false
-}
+  "cases": [],
+  "dynamic": {
+    "parentType": "father | mother | other",
+    "parentOldName": "",
+    "parentCurrentName": "",
+    "selfOldName": "",
+    "selfCurrentName": "",
+    "total": 0,
+    "brothers": 0,
+    "sisters": 0,
+    "position": 0,
+    "ageGapType": "UNDER_15 | OVER_50 | NONE",
+    "isAgeGapValid": true
+  }
 }
 
 ---
 
 ⚠️ Rules:
 
-- Do NOT guess. Use only provided info.
-- If unsure → leave empty or null
-- Do NOT explain anything
+- Use only the information provided.
+- If the value is not available, return null or an empty string.
+- Do NOT provide explanations.
 
 ---
 
@@ -52,16 +56,25 @@ Applicant Details:
 ${JSON.stringify(data.basicDetails)}
 
 Applicant Comment:
-${data.applicantComment}
+${JSON.stringify(data.additionalFacts)}
+
+Selected Cases:
+${JSON.stringify(data.selectedCases)}
+
+Dynamic Fields:
+${JSON.stringify(data.dynamicFields)}
 
 ---
 
 🎯 Output:
 
 Return ONLY JSON.
-  `;
+`;
 
-export const normalizePrompt = (detected: any, data: any) => `
+export const normalizePrompt = (
+  detected: AIPipelineDetected,
+  data: AppFormData
+) => `
 You are a legal data formatter.
 
 Your job is to convert detected case data and applicant input into a clean structured format for legal drafting.
@@ -76,40 +89,53 @@ ${JSON.stringify(detected)}
 Applicant:
 ${JSON.stringify(data.basicDetails)}
 
+Applicant Comment:
+${JSON.stringify(data.additionalFacts)}
+
 ---
 
 Output JSON:
 
 {
-"applicant": {
-"name": "",
-"age": "",
-"relation": "S/O or D/O",
-"parentName": ""
-},
-"cases": [],
-"facts": {
-"parentOldName": "",
-"parentCurrentName": "",
-"selfOldName": "",
-"selfCurrentName": "",
-"familyText": "",
-"ageGapText": ""
-}
+  "applicant": {
+    "name": "",
+    "age": "",
+    "relation": "S/O or D/O",
+    "parentName": ""
+  },
+  "cases": [],
+  "facts": {
+    "parentOldName": "",
+    "parentCurrentName": "",
+    "selfOldName": "",
+    "selfCurrentName": "",
+    "familyText": "",
+    "ageGapText": "",
+    "brothersCount": number,
+  "sistersCount": number,
+  "birthPosition": number,
+  "parentType": "",
+  "parentDoB": "",
+  "ageDifference": "",
+  }
 }
 
 ---
 
 Rules:
 
-- Convert into clean readable values
-- Prepare ready-to-use legal phrases (short)
-- No explanation
+- Convert into clean, readable values.
+- Prepare short, ready-to-use legal phrases.
+- Avoid explanations.
+- Use detected values only.
 
 Return only JSON.
 `;
 
-export const generatePrompt = (normalized: any, data: any) => `
+export const generatePrompt = (
+  normalized: AIPipelineNormalized,
+  data: AppFormData
+) => `
 You are a senior legal drafting assistant.
 
 Generate a complete SIR 2026 appeal application.
@@ -118,11 +144,17 @@ Generate a complete SIR 2026 appeal application.
 
 Instructions:
 
-- Merge all detected cases into ONE application
-- Use proper legal tone
-- Keep it clear and human-like
-- No repetition
-- No hallucination
+- Merge all detected cases into ONE application.
+- Use proper legal tone.
+- Keep it clear and human-like.
+- Avoid repetition.
+- Do not hallucinate.
+- Appeal application must be in 400 tokens
+- Do NOT exceed 400 tokens
+- one case one salution
+- For a case or problem, there is only one salution -- no more than that
+- If there is more than one problem, provide a salution for that problem -- nothing more.
+- The appeal application should be strictly based on the detected cases and provided facts. Do not add any information that is not present in the input.
 
 ---
 
@@ -139,20 +171,23 @@ Must Include:
 Input:
 
 Structured Data:
-${JSON.stringify(data.normalizedJson)}
+${JSON.stringify(normalized)}
 
 Applicant Comment:
-${JSON.stringify(data.applicantComment)}
+${JSON.stringify(data.additionalFacts)}
 
 District:
-${JSON.stringify(data.district)}
+${JSON.stringify(data.basicDetails.district)}
 
 Language:
-${JSON.stringify(data.lang)}
+"English"
 
 ---
 
 Output:
 
 Generate ONLY final application text.
+Here is the format to follow:
+
+${JSON.stringify(TEMPLATES.multiple_paternity_claims)}
 `;

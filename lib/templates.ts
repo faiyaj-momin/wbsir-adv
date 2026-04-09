@@ -19,7 +19,6 @@ I have been voting as per law and I possess valid documents establishing my iden
 Therefore, I humbly request that my name may not be deleted and the records may kindly be verified and corrected accordingly.
 
 Annexure:
-
 1. Aadhaar
 2. Voter ID
 3. PAN
@@ -27,9 +26,6 @@ Annexure:
 5. BLO Notice
 6. Hearing Notice
 7. 2002 Voter List
-
-Submitted by
-{{fullName}}
   `,
   father_name_mismatch: `
 BEFORE THE LD. TRIBUNAL / APPELLATE COURT AT {{district}}
@@ -48,8 +44,14 @@ The variation has occurred due to spelling differences or clerical errors.
 
 Therefore, I humbly request correction.
 
-Submitted by  
-{{fullName}}
+Annexure:
+1. Aadhaar
+2. Voter ID
+3. PAN
+4. Ration Card
+5. BLO Notice
+6. Hearing Notice
+7. 2002 Voter List
 `,
   name_mismatch: `
   BEFORE THE LD. TRIBUNAL / APPELLATE COURT AT {{district}}
@@ -75,7 +77,6 @@ I am a genuine voter and there is no doubt regarding my identity.
 Hence, I humbly request necessary correction and continuation of my name in the electoral roll.
 
 Annexure:
-
 1. Aadhaar
 2. Voter ID
 3. PAN
@@ -83,9 +84,6 @@ Annexure:
 5. BLO Notice
 6. Hearing Notice
 7. 2002 Voter List
-
-Submitted by
-{{currentName}}
 `,
 
   age_over_50: `
@@ -108,11 +106,14 @@ Therefore, this is not a case of wrong linkage, and my relationship is true and 
 Hence, I humbly request that the records may kindly be verified and corrected accordingly.
 
 Annexure:
-[Same as above]
-
-Submitted by
-{{fullName}}
-  `,
+1. Aadhaar
+2. Voter ID
+3. PAN
+4. Ration Card
+5. BLO Notice
+6. Hearing Notice
+7. 2002 Voter List
+`,
   age_under_15: `
   BEFORE THE LD. TRIBUNAL / APPELLATE COURT AT {{district}}
 
@@ -133,9 +134,12 @@ Therefore, this does not indicate any wrong linkage.
 Hence, I humbly request that the records may kindly be verified and corrected accordingly.
 
 Annexure:
-[Same as above]
-
-Submitted by
-{{fullName}}
-  `,
+1. Aadhaar
+2. Voter ID
+3. PAN
+4. Ration Card
+5. BLO Notice
+6. Hearing Notice
+7. 2002 Voter List
+`,
 };

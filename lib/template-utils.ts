@@ -1,4 +1,5 @@
 import { FormData, DynamicFields, CaseType } from "@/types/forms";
+import { generateMergedDocument } from "./merge-documents";
 
 /**
  * Calculate age from date of birth
@@ -80,8 +81,7 @@ export function buildTemplateData(form: FormData): Record<string, any> {
     // For family cases (multiple_paternity_claims, age_over_50, age_under_15)
     total:
       (currentCaseDynamicFields?.brothersCount || 0) +
-      (currentCaseDynamicFields?.sistersCount || 0) +
-      1 || 1,
+      (currentCaseDynamicFields?.sistersCount || 0),
     brothers: currentCaseDynamicFields?.brothersCount || 0,
     sisters: currentCaseDynamicFields?.sistersCount || 0,
     position: currentCaseDynamicFields?.birthPosition || 1,
@@ -97,6 +97,32 @@ export function injectTemplate(template: string, data: any): string {
     const trimmedKey = key.trim();
     return data[trimmedKey] ?? '';
   });
+}
+
+/**
+ * Check if Gemini API key is available
+ */
+export function hasGeminiApiKey(): boolean {
+  return !!process.env.GEMINI_API_KEY;
+}
+
+/**
+ * Generate appeal using Gemini AI
+ */
+export async function generateAppealWithGemini(formData: FormData): Promise<string> {
+  // Placeholder for Gemini integration
+  // In the future, this will use Google's Gemini API
+  // For now, return the merged document
+  return generateMergedDocument(formData);
+}
+
+/**
+ * Download PDF from HTML element
+ */
+export async function downloadPDF(elementId: string, options: any = {}): Promise<void> {
+  // Placeholder for PDF generation
+  // In the future, this will use a PDF library like jsPDF or html2pdf
+  console.log('PDF download not implemented yet', elementId, options);
 }
 
 /**
