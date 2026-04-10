@@ -23,6 +23,20 @@ Additional conditions:
 - If applicant says NO notice received → NOTICE_NOT_SERVED
 - If notice received WITHOUT reason → NOTICE_INCOMPLETE
 
+
+A Logical Discrepancy Notice looks like this; several sample notices are provided below.
+1. The age difference between you and your grandfather or grandmother, whose details were used to link you to the voters' list of the previous SIR, is less than 40 years, which is likely due to mis-linking.
+2. You have been added as the son/daughter of someone who is also claimed as the father by six other people, which is a possible false connection.
+3. The age difference between you and your parent, whose details were used to link you to the voter list in the previous SIR, is more than 50 years, which is likely due to mis-linking.
+4. The age difference between you and your parent, whose details were used to link you to the voter list of the previous SIR, is less than 15 years, which is likely due to mis-linking.
+5. There's a mismatch in the father's or own name provided in the previous SR with what's linked to the voter list. This mismatch is likely due to an incorrect linkage.
+- However, some individuals were not served with a notice by the BLO, while others received incomplete notices in which no reason was specified.
+- Generally, an individual receives only one case. However, in certain instances, an individual may receive more than one case.
+Generally, an individual receives only one case. However, in certain instances, an individual may receive more than one case.
+
+
+
+
 ---
 
 📌 MULTI-CASE RULE
@@ -262,18 +276,6 @@ ${JSON.stringify(data.additionalFacts)}
 
 District:
 ${JSON.stringify(data.basicDetails.district)}
-
----
-
-A Logical Discrepancy Notice looks like this; several sample notices are provided below.
-1. The age difference between you and your grandfather or grandmother, whose details were used to link you to the voters' list of the previous SIR, is less than 40 years, which is likely due to mis-linking.
-2. You have been added as the son/daughter of someone who is also claimed as the father by six other people, which is a possible false connection.
-3. The age difference between you and your parent, whose details were used to link you to the voter list in the previous SIR, is more than 50 years, which is likely due to mis-linking.
-4. The age difference between you and your parent, whose details were used to link you to the voter list of the previous SIR, is less than 15 years, which is likely due to mis-linking.
-5. There's a mismatch in the father's or own name provided in the previous SR with what's linked to the voter list. This mismatch is likely due to an incorrect linkage.
-- However, some individuals were not served with a notice by the BLO, while others received incomplete notices in which no reason was specified.
-- Generally, an individual receives only one case. However, in certain instances, an individual may receive more than one case.
-Generally, an individual receives only one case. However, in certain instances, an individual may receive more than one case.
 
 ---
 
