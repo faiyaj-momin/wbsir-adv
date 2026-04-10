@@ -211,7 +211,168 @@ ${JSON.stringify(data.additionalFacts)}
 Return ONLY JSON
 `;
 
+
+
+
 export const generatePrompt = (
+  normalized: AIPipelineNormalized,
+  data: AppFormData
+) => `
+You are a senior legal drafting expert for SIR 2026 electoral appeals.
+
+Generate ONE complete, ready-to-submit appeal using ONLY the provided data.
+
+---
+
+🎯 CORE RULES (STRICT)
+
+- Max 350 tokens
+- No placeholders like {{}} in final output
+- Convert all structured data into natural legal sentences
+- Use simple, clear English
+- No repetition
+- No assumptions or new facts
+- Skip missing/null fields gracefully
+- Output must be directly printable
+
+---
+
+📌 OUTPUT STRUCTURE (STRICT - FOLLOW EXACT ORDER)
+
+BEFORE THE LD. TRIBUNAL / APPELLATE AUTHORITY AT [District]
+
+Sub:- Petition of Appeal against objection raised during SIR 2026 regarding electoral linkage
+
+Introduction paragraph
+
+[Notice Block]
+
+[Case Blocks in priority order]
+
+Final declaration paragraph
+
+---
+
+📌 PLACEHOLDER RESOLUTION
+
+Convert all fields into real text:
+
+- father → "my father's name"
+- mother → "my mother's name"
+
+Example:
+→ That my father's name recorded as "X" and "Y" refer to the same and identical person.
+
+Do NOT output variable names like parentType, parentOldName.
+
+---
+
+⚖️ AUTO PRIORITY RULE (VERY IMPORTANT)
+
+Arrange case explanations in this priority:
+
+1. NOTICE_NOT_SERVED / NOTICE_INCOMPLETE (highest)
+2. NAME_MISMATCH (strongest factual defense)
+3. MULTIPLE_PATERNITY
+4. AGE_GAP_GT_50
+5. AGE_GAP_LT_15
+6. GRANDPARENT_AGE_GAP_LT_40 (lowest)
+
+- Always place NOTICE first if exists
+- Then sort remaining cases using above priority
+- Each case must be a separate paragraph
+
+---
+
+⚖️ CASE WRITING RULES
+
+MULTIPLE_PATERNITY  
+- VALID → explain large family (mention siblings)  
+- INVALID → clearly say siblings are less than six  
+
+AGE_GAP_GT_50  
+→ explain late parenthood + large family span  
+
+AGE_GAP_LT_15  
+→ explain early marriage + record variation  
+
+GRANDPARENT_AGE_GAP_LT_40  
+→ say incorrect generational linkage  
+
+NAME_MISMATCH  
+→ MUST use: "same and identical person"  
+→ mention spelling / clerical error  
+
+NOTICE_NOT_SERVED  
+→ violation of natural justice  
+
+NOTICE_INCOMPLETE  
+→ no reason given  
+
+---
+
+📌 BLOCK GENERATION RULE
+
+Generate content logically but DO NOT print block names.
+
+Instead, follow this sequence internally:
+
+- noticeBlock → only if notice case exists  
+- other blocks → based on priority order  
+
+---
+
+📌 INTRODUCTION FORMAT
+
+Include:
+- Name
+- Age
+- Relation (S/O, D/O, etc.)
+- Parent name
+
+Use simple sentence:
+"I respectfully submit that I am a bona fide voter..."
+
+---
+
+📌 FINAL DECLARATION (MANDATORY)
+
+Always include:
+
+"That all relationships stated above are genuine and valid and supported by official documents. The discrepancies, if any, are due to clerical or legacy record errors.
+
+Under the above facts and circumstances, it is therefore most humbly prayed that the objection may kindly be set aside and my name be retained in the electoral roll."
+
+---
+
+📥 INPUT
+
+Structured:
+${JSON.stringify(normalized)}
+
+Applicant Comment:
+${JSON.stringify(data.additionalFacts)}
+
+District:
+${JSON.stringify(data.basicDetails.district)}
+
+---
+
+📤 OUTPUT
+
+Return ONLY final appeal text.
+
+- No JSON
+- No headings like "Notice Block"
+- No placeholders
+- Fully natural legal draft
+`;
+
+
+
+
+
+export const generatePrompt2 = (
   normalized: AIPipelineNormalized,
   data: AppFormData
 ) => `
